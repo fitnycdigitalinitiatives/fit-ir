@@ -52,7 +52,7 @@
 
     <div class="field mb-3">
         <div class="field-meta">
-            <label class="form-label" for="fulltext_search"><?php echo $this->translate('Search full-text'); ?></label>
+            <label class="form-label" for="fulltext_search"><?php echo $this->translate('Search all metadata'); ?></label>
         </div>
         <div class="inputs">
             <?php echo $this->formInput($formQueryInput->setAttributes(['class' => 'form-control', 'type' => 'search', 'placeholder' => ''])); ?>
@@ -62,7 +62,7 @@
     <?php if (!empty($settings['form']['search_fields'])): ?>
       <div id="property-queries" class="field removable multi-value mb-3" role="group" aria-labelledby="by-value-label">
           <div class="field-meta form-label">
-              <span id="by-value-label" class="label"><?php echo $translate('Search by value'); ?></span>
+              <span id="by-value-label" class="label"><?php echo $translate('Search by specific fields'); ?></span>
               <button type="button" class="search-add-filter o-icon-add button border-0 bg-transparent" aria-label="<?php echo $translate('Add new value'); ?>">
                 <i class="fas fa-plus" title="<?php echo $translate('Add new value'); ?>" aria-hidden="true">
                 </i>
