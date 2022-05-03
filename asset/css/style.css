@@ -480,6 +480,24 @@ footer #fit-logo {
 }
 
 /* Item show */
+.fa-eye-slash, .o-icon-private {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #6c757d;
+  margin-left: 0.5em;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+.fa-eye-slash:before, .o-icon-private:before {
+  content: "\f070";
+}
+
 .item.resource.show .date-class-type {
   font-family: "halyard-display", sans-serif;
   font-weight: bold;
@@ -518,6 +536,24 @@ footer #fit-logo {
 
 .item.resource.show .property a {
   color: #6c757d;
+}
+
+.item.resource.show .collapsible.annotation {
+  border-left: 3px solid #dfdfdf;
+  padding: 0;
+  border-radius: 3px;
+  margin: 6px 0 12px 24px;
+  width: 100%;
+}
+
+.item.resource.show .collapsible.annotation .property {
+  padding: 0 12px;
+  margin-bottom: 0;
+}
+
+.item.resource.show .collapsible.annotation .property h4 {
+  font-size: 1.15rem;
+  margin-bottom: .25rem;
 }
 
 .item.resource.show #citationTabContent .form-control {
