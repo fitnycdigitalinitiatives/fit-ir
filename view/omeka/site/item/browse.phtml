@@ -57,8 +57,8 @@ $sortHeadings = [
         <?php endif; ?>
         <!-- check if solr/search module is activated by checking if the helper is present -->
         <?php if (($this->getHelperPluginManager()->has('getFacetsForBrowse')) && (!array_key_exists('scroll_request', $query))): ?>
-          <?php $facets = $this->getFacetsForBrowse($query, $itemSetShow); ?>
-          <?php if ($facets): ?>
+          <?php $facetsForBrowse = $this->getFacetsForBrowse($query, $itemSetShow); ?>
+          <?php if ($facetsForBrowse['facets']): ?>
             <!-- filter  -->
             <button id="filter-button" class="btn btn-fit-pink floating-action" type="button" data-bs-toggle="offcanvas" data-bs-target="#searchFilters" aria-controls="searchFilters" aria-label="Filter results">
               <span class="action-container">
@@ -73,7 +73,7 @@ $sortHeadings = [
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div class="offcanvas-body p-0">
-                <?php echo $this->partial('search/facets', ['facets' => $facets, 'queryParams' => $this->params()->fromQuery()]); ?>
+                <?php echo $this->partial('search/facets', ['facets' => $facetsForBrowse['facets'], 'dateFacetStats' => $facetsForBrowse['dateFacetStats'], 'queryParams' => $this->params()->fromQuery()]); ?>
               </div>
             </div>
           <?php endif; ?>

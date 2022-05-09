@@ -36,8 +36,6 @@
     $totalResults = $response->getTotalResults();
 ?>
 
-
-
 <div class="container pt-2 pb-3 pt-md-5 pb-md-4">
   <div class="row justify-content-center results-header">
     <div class="col">
@@ -63,7 +61,7 @@
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body p-0">
-              <?php echo $this->partial('search/facets', ['facets' => $facets, 'queryParams' => $this->params()->fromQuery()]); ?>
+              <?php echo $this->partial('search/facets', ['facets' => $facets, 'dateFacetStats' => $dateFacetStats, 'queryParams' => $this->params()->fromQuery()]); ?>
             </div>
           </div>
         <?php else: ?>
