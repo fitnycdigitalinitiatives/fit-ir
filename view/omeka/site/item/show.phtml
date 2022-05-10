@@ -109,9 +109,7 @@ $lang = $this->lang();
 <div class="container pt-2 pb-3 py-md-4" id="quick-details">
   <div class="row">
     <div class="col">
-      <h2 class="h3">
-        <?php echo $item->displayTitle(null, ($filterLocale ? $lang : null)); ?>
-      </h2>
+      <?php echo $this->pageTitle($item->displayTitle(null, ($filterLocale ? $lang : null)), 2); ?>
       <?php echo $this->ItemDetailsHelper($item); ?>
       <?php if ($contributors = $item->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
         <div class="contributors fst-italic">

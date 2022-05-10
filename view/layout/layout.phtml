@@ -4,7 +4,6 @@ $this->htmlElement('html')->appendAttribute('lang', $this->lang())->appendAttrib
 $this->headMeta()->setCharset('utf-8');
 $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1');
 $this->headTitle($site->title())->setSeparator(' · ');
-$this->headTitle()->append($this->setting('installation_title', 'Omeka S'));
 $this->headLink()
 ->prependStylesheet($this->assetUrl('css/style.css'))
 ->prependStylesheet('https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.css', 'screen', null, ['integrity' => 'sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==', 'crossorigin' => 'anonymous'])

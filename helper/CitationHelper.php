@@ -8,18 +8,17 @@ class CitationHelper extends AbstractHelper
 {
     public function __invoke(ItemRepresentation $item)
     {
-        $filterLocale = (bool) $this->getView()->siteSetting('filter_locale_values');
         $escape = $this->getView()->plugin('escapeHtml');
         $apaAuthors = '';
         $chicagoAuthors = '';
         $mlaAuthors = '';
-        $title = $item->displayTitle(null, ($filterLocale ? $lang : null));
+        $title = $item->displayTitle();
         $titleCased = $this->titleCase($title);
-        $date = $item->value('dcterms:date', ['lang' => ($filterLocale ? [$lang, ''] : null)]);
+        $date = $item->value('dcterms:date');
         $thesis = '';
         $chicagoThesis = 'FIT Digital Repository';
         $mlaThesis = '<em>FIT Digital Repository</em>';
-        if ($types = $item->value('dcterms:type', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])) {
+        if ($types = $item->value('dcterms:type', ['all' => true])) {
             foreach ($types as $type) {
                 if (ucfirst($escape($type)) == "Thesis") {
                     $thesis = ' [Master\'s thesis, Fashion Institute of Technology, State University of New York]';
@@ -29,7 +28,7 @@ class CitationHelper extends AbstractHelper
             }
         }
         $url = $escape($item->url());
-        if ($contributors = $item->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])) {
+        if ($contributors = $item->value('dcterms:contributor', ['all' => true])) {
             $authorList = [];
             foreach ($contributors as $key => $contributor) {
                 if (str_contains($contributor->asHtml(), 'Author') || str_contains($contributor->asHtml(), 'Creator')) {
