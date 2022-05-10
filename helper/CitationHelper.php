@@ -94,7 +94,7 @@ class CitationHelper extends AbstractHelper
           <div class="tab-pane fade show active" id="apa" role="tabpanel" aria-labelledby="apa-tab">
             <div class="input-group mb-3">
               <div class="form-control font-monospace text-break" id="apaCitation">
-              ' . $apa . '
+              ' . str_replace('..', '.', $apa) . '
               </div>
               <button class="btn btn-secondary clip-button" type="button" id="apa-button" data-clipboard-target="#apaCitation" aria-label="Copy citation to clipboard">
                 <i class="fas fa-copy" title="Copy citation to clipboard" aria-hidden="true"></i>
@@ -104,7 +104,7 @@ class CitationHelper extends AbstractHelper
           <div class="tab-pane fade" id="mla" role="tabpanel" aria-labelledby="mla-tab">
           <div class="input-group mb-3">
             <div class="form-control font-monospace text-break" id="mlaCitation">
-            ' . $mla . '
+            ' . str_replace('..', '.', $mla) . '
             </div>
             <button class="btn btn-secondary clip-button" type="button" id="mla-button" data-clipboard-target="#mlaCitation" aria-label="Copy citation to clipboard">
               <i class="fas fa-copy" title="Copy citation to clipboard" aria-hidden="true"></i>
@@ -114,7 +114,7 @@ class CitationHelper extends AbstractHelper
           <div class="tab-pane fade" id="chicago" role="tabpanel" aria-labelledby="chicago-tab">
           <div class="input-group mb-3">
             <div class="form-control font-monospace text-break" id="chicagoCitation">
-            ' . $chicago . '
+            ' . str_replace('..', '.', $chicago) . '
             </div>
             <button class="btn btn-secondary clip-button" type="button" id="chicago-button" data-clipboard-target="#chicagoCitation" aria-label="Copy citation to clipboard">
               <i class="fas fa-copy" title="Copy citation to clipboard" aria-hidden="true"></i>
