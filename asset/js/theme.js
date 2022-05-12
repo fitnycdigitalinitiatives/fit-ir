@@ -35,7 +35,7 @@ $(document).ready(function() {
       var loadButton = `
       <div class="row justify-content-center">
         <div class="col-auto">
-          <button id="load-button" class="btn btn-fit-green floating-action" type="button" aria-controls="searchFilters" aria-label="Load more results">
+          <button id="load-button" class="btn btn-fit-pink floating-action" type="button" aria-controls="searchFilters" aria-label="Load more results">
             <span class="action-container">
               <i class="fas fa-plus" aria-hidden="true" title="Load more results">
               </i>
