@@ -32,7 +32,8 @@
 <?php
     $this->htmlElement('body')->appendAttribute('class', 'resource search');
     $escape = $this->plugin('escapeHtml');
-    $this->headScript()->appendFile($this->assetUrl('js/search.js', 'Search'));
+    $this->headScript()
+    ->appendFile($this->assetUrl('js/search.js', 'Search'));
     $totalResults = $response->getTotalResults();
 ?>
 

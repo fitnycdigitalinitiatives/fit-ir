@@ -600,6 +600,17 @@ footer #fit-logo {
   border-top-right-radius: calc(.25rem - 2px);
 }
 
+.item.resource.show #social-share .clip-button {
+  color: #0036f9;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.item.resource.show #social-share .clip-button:focus {
+  color: #002bc7;
+  box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
+}
+
 @media (min-width: 768px) {
   .item.resource.show #media-wrapper {
     position: relative;
