@@ -55,7 +55,7 @@ $sortHeadings = [
             Showing <?php echo number_format($totalResults); ?> result<?php echo ($totalResults == 1)? '' : 's'; ?>
           </div>
         <?php endif; ?>
-        <!-- check if solr/search module is activated by checking if the helper is present -->
+        <?php // check if solr/search module is activated by checking if the helper is present?>
         <?php if (($this->getHelperPluginManager()->has('getFacetsForBrowse')) && (!array_key_exists('scroll_request', $query))): ?>
           <?php $facetsForBrowse = $this->getFacetsForBrowse($query, $itemSetShow); ?>
           <?php if ($facetsForBrowse['facets']): ?>

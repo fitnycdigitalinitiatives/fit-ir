@@ -666,6 +666,10 @@ footer #fit-logo {
   padding-bottom: 3rem;
 }
 
+.page .browse-preview #filter-button {
+  margin-top: -.5rem;
+}
+
 .page .browse-preview .glider .glider-track {
   align-items: center;
 }

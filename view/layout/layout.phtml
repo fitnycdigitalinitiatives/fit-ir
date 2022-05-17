@@ -4,7 +4,7 @@ $this->htmlElement('html')->appendAttribute('lang', $this->lang())->appendAttrib
 $this->headMeta()->setCharset('utf-8');
 $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1');
 $this->headTitle($site->title())->setSeparator(' · ');
-$this->headLink()
+$this->headLink(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => $this->assetUrl('img/favicon.ico')], 'PREPEND')
 ->prependStylesheet($this->assetUrl('css/style.css'))
 ->prependStylesheet('https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.css', 'screen', null, ['integrity' => 'sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==', 'crossorigin' => 'anonymous'])
 ->prependStylesheet('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', 'screen', null, ['integrity' => 'sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=', 'crossorigin' => 'anonymous'])
