@@ -388,6 +388,10 @@ footer #fit-logo {
   transform: rotate(-90deg);
 }
 
+#dateRangeFacet input[type="number"] {
+  max-width: 6rem;
+}
+
 #date-facet-slider.noUi-target {
   height: 0.5rem;
   background: #dee2e6;
