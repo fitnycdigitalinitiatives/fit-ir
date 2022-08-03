@@ -135,11 +135,13 @@ $(document).ready(function() {
   }
   //Media viewer
   if ($('body').hasClass('show')) {
-    //tooltips
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      //tooltips
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
+    }
     //advance buttons
     $('#media-sidebar .btnNext').click(function() {
       var next = $('#mediaTab .nav-item').has('button.active').next('li');

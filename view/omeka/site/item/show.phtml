@@ -32,11 +32,11 @@ $lang = $this->lang();
               </div>
             </div>
           </div>
-          <div class="col-md-1 p-md-0 px-xl-2" id="media-sidebar">
-            <ul class="nav flex-column d-none d-md-block" id="mediaTab" role="tablist">
+          <div class="col-md-1 py-1 p-md-0 px-xl-2" id="media-sidebar">
+            <ul class="nav align-items-center flex-md-column d-md-block" id="mediaTab" role="tablist">
               <?php $tab_id = 1; ?>
               <?php foreach ($itemMedia as $media): ?>
-                <li class="nav-item mb-3" role="presentation">
+                <li class="nav-item p-md-0 mb-md-3" role="presentation">
                   <button class="nav-link text-secondary border-0 shadow-sm rounded p-0<?php echo($tab_id == 1 ? ' active' : ''); ?>" id="media-<?php echo $tab_id; ?>-tab" data-bs-toggle="tab" data-bs-target="#media-<?php echo $tab_id; ?>" type="button" role="tab" aria-controls="media-<?php echo $tab_id; ?>" aria-selected="<?php echo($tab_id == 1 ? 'true' : 'false'); ?>">
                     <?php echo $this->thumbnail($media, 'medium', ['class' => 'rounded img-fluid', 'alt' => $media->displayTitle(), 'title' => $media->displayTitle(), 'data-bs-toggle' => 'tooltip']); ?>
                   </button>
@@ -50,25 +50,6 @@ $lang = $this->lang();
               <i class="fas fa-chevron-down" title="Next" aria-hidden="true">
               </i>
             </button>
-            <ul class="nav nav-pills d-md-none mt-3 justify-content-end" id="mediaDropdown">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active bg-secondary" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Item Media</a>
-                <ul class="dropdown-menu">
-                  <?php $tab_id = 1; ?>
-                  <?php foreach ($itemMedia as $media): ?>
-                    <li role="presentation">
-                      <a class="dropdown-item d-flex gap-2 p-2 align-items-center" id="media-<?php echo $tab_id; ?>-tab" data-bs-toggle="list"  href="#media-<?php echo $tab_id; ?>" type="button" role="tab" aria-controls="media-<?php echo $tab_id; ?>" aria-selected="<?php echo($tab_id == 1 ? 'true' : 'false'); ?>">
-                        <?php echo $this->thumbnail($media, 'medium', ['class' => 'rounded d-block', 'width' => '32px', 'alt' => $media->displayTitle(), 'title' => $media->displayTitle(), 'data-bs-toggle' => 'tooltip']); ?>
-                          <?php echo $media->displayTitle(); ?>
-                      </a>
-                    </li>
-                    <?php
-                      $tab_id++;
-                      endforeach;
-                    ?>
-                </ul>
-              </li>
-            </ul>
           </div>
         <?php else: ?>
           <div class="col">
