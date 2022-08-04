@@ -615,17 +615,12 @@ footer #fit-logo {
   color: #6c757d;
 }
 
-.item.resource.show .collapsible.annotation {
+.item.resource.show .collapsible.annotation .property {
   border-left: 3px solid #dfdfdf;
-  padding: 0;
   border-radius: 3px;
   margin: 6px 0 12px 24px;
   width: 100%;
-}
-
-.item.resource.show .collapsible.annotation .property {
   padding: 0 12px;
-  margin-bottom: 0;
 }
 
 .item.resource.show .collapsible.annotation .property h4 {
