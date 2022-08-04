@@ -736,6 +736,26 @@ footer #fit-logo {
 
 .page .browse-preview .glider .card img {
   width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+@media (min-width:576px) {
+  .page .browse-preview .glider .card img {
+    max-height: 300px;
+  }
+}
+
+@media (min-width:768px) {
+  .page .browse-preview .glider .card img {
+    max-height: 275px;
+  }
+}
+
+@media (min-width:1200px) {
+  .page .browse-preview .glider .card img {
+    max-height: 300px;
+  }
 }
 
 .page .browse-preview .glider .card .card-body {
