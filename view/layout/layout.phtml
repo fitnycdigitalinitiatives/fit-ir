@@ -24,6 +24,15 @@ $userBar = $this->userBar();
 <?php echo $this->doctype(); ?>
 <?php echo $this->htmlElement('html'); ?>
     <head>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-9G9SWC42GS"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-9G9SWC42GS');
+      </script>
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headTitle(); ?>
         <?php echo $this->headLink(); ?>
