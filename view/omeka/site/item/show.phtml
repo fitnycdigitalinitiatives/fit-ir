@@ -4,6 +4,12 @@ $escape = $this->plugin('escapeHtml');
 $this->htmlElement('body')->appendAttribute('class', 'item resource show');
 $embedMedia = $this->siteSetting('item_media_embed', false);
 $itemMedia = $item->media();
+//remove captions files from itemMedia so it doesn't display
+foreach ($itemMedia as $key => $media) {
+    if ($media->mediaType() == "text/vtt") {
+        unset($itemMedia[$key]);
+    }
+}
 $this->headScript()->appendFile('https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js', 'text/javascript', ['defer' => 'defer']);
 
 $filterLocale = (bool) $this->siteSetting('filter_locale_values');
@@ -54,7 +60,9 @@ $lang = $this->lang();
         <?php else: ?>
           <div class="col">
             <div class="media-embeds">
-              <?php echo $itemMedia[0]->render(); ?>
+              <?php foreach ($itemMedia as $media): ?>
+                <?php echo $media->render(); ?>
+              <?php endforeach; ?>
             </div>
           </div>
         <?php endif; ?>
