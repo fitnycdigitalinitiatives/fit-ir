@@ -611,6 +611,14 @@ footer #fit-logo {
   margin-bottom: 1.5rem;
 }
 
+.item.resource.show .property .value {
+  margin-bottom: .5rem;
+}
+
+.item.resource.show .property .value:last-child {
+  margin-bottom: 0;
+}
+
 .item.resource.show .property a {
   color: #6c757d;
 }
