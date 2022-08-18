@@ -49,21 +49,26 @@ class ItemDetailsHelper extends AbstractHelper
             }
         }
 
-        $html = '<div class="date-class-type"><ul class="list-inline mb-0">';
+        $html = '<div class="date-class-type">';
         if ($date) {
-            $html .= '<li class="date list-inline-item">' . $date->asHtml() . '</li>';
+            $html .= '<ul class="list-inline mb-0"><li class="date list-inline-item">' . $date->asHtml() . '</li></ul>';
         }
-        if ($typeLabels) {
-            foreach ($typeLabels as $label) {
-                $html .= '<li class="type list-inline-item">'. $label .'</li>';
+        if ($typeIcons || $typeLabels) {
+            $html .= '<ul class="list-inline mb-0">';
+            if ($typeIcons) {
+                foreach ($typeIcons as $icon) {
+                    $html .= '<li class="type list-inline-item">'. $icon .'</li>';
+                }
             }
-        }
-        if ($typeIcons) {
-            foreach ($typeIcons as $icon) {
-                $html .= '<li class="type list-inline-item">'. $icon .'</li>';
+            if ($typeLabels) {
+                foreach ($typeLabels as $label) {
+                    $html .= '<li class="type list-inline-item">'. $label .'</li>';
+                }
             }
+            $html .= '</ul>';
         }
-        $html .= '</ul></div>';
+
+        $html .= '</div>';
         return  $html;
     }
 }
