@@ -148,12 +148,7 @@ $lang = $this->lang();
       $property = $this->params()->fromQuery('property');
       $subjectValues = $item->displaySubjectValues($page, 25, $property);
       ?>
-      <?php if ($subjectValues): ?>
-      <div id="item-linked">
-          <h3><?php echo $translate('Linked resources'); ?></h3>
-          <?php echo $subjectValues; ?>
-      </div>
-      <?php endif; ?>
+      <!-- Removed linked resources -->
     </div>
     <div class="col-lg-5 col-xxl-4">
       <div class="property">

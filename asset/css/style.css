@@ -623,6 +623,38 @@ footer #fit-logo {
   color: #6c757d;
 }
 
+.item.resource.show .property .resource-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding-top: .5rem;
+}
+
+.item.resource.show .property .resource-link img {
+  height: 3rem;
+  width: 3rem;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+}
+
+.item.resource.show .property .resource-link .resource-name {
+  flex-grow: 1;
+  margin-left: .75rem;
+  font-family: "halyard-display", sans-serif;
+  font-weight: bold;
+  color: #212529;
+}
+
+.item.resource.show .property .resource-link .resource-name:after {
+  content: "\f1b2";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  display: inline-block;
+  margin-left: 0.5em;
+  color: #6c757d;
+}
+
 .item.resource.show .collapsible.annotation .property {
   border-left: 3px solid #dfdfdf;
   border-radius: 3px;
