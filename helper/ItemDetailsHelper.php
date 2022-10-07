@@ -11,6 +11,16 @@ class ItemDetailsHelper extends AbstractHelper
         $filterLocale = (bool) $this->getView()->siteSetting('filter_locale_values');
         $escape = $this->getView()->plugin('escapeHtml');
         $date = $resource->value('dcterms:date', ['lang' => ($filterLocale ? [$lang, ''] : null)]);
+        $departments = [];
+        if ($resource->resourceName() == "items") {
+            foreach ($resource->itemSets() as $itemSet) {
+                foreach ($itemSet->value('dcterms:type', ['all' => true]) as $itemSetType) {
+                    if ($itemSetType == "Department") {
+                        $departments[] = $itemSet->displayTitle();
+                    }
+                }
+            }
+        }
         $types = $resource->value('dcterms:type', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)]);
         $class = $resource->displayResourceClassLabel();
         $typesList = [];
@@ -52,6 +62,13 @@ class ItemDetailsHelper extends AbstractHelper
         $html = '<div class="date-class-type">';
         if ($date) {
             $html .= '<ul class="list-inline mb-0"><li class="date list-inline-item">' . $date->asHtml() . '</li></ul>';
+        }
+        if ($departments) {
+            $html .= '<ul class="list-inline mb-0">';
+            foreach ($departments as $department) {
+                $html .= '<li class="type list-inline-item">'. $department .'</li>';
+            }
+            $html .= '</ul>';
         }
         if ($typeIcons || $typeLabels) {
             $html .= '<ul class="list-inline mb-0">';

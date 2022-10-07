@@ -130,19 +130,19 @@ $sortHeadings = [
               <?php echo $this->ItemDetailsHelper($item); ?>
 
               <?php if ($contributors = $item->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-                <div class="contributors fst-italic">
                   <?php
-                  $i = 1;
-                  $len = count($contributors);
+                  $contributorsArray = [];
+                  foreach ($contributors as $contributor) {
+                      if (!str_contains(strtolower($contributor), strtolower("Fashion Institute of Technology, State University of New York"))) {
+                          $contributorsArray[] = $contributor->asHtml();
+                      }
+                  }
                   ?>
-                  <?php foreach ($contributors as $contributor): ?>
-                    <?php echo $contributor->asHtml(); ?>
-                    <?php if ($len > $i): ?>
-                      <?php echo "; "; ?>
-                    <?php endif; ?>
-                    <?php $i++; ?>
-                  <?php endforeach; ?>
-                </div>
+                  <?php if ($contributorsArray): ?>
+                    <div class="contributors fst-italic">
+                      <?php echo implode("; ", $contributorsArray) ?>
+                    </div>
+                  <?php endif; ?>
               <?php endif; ?>
               <?php if ($abstract = $item->value('dcterms:abstract', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
               <div class="abstract"><?php echo $abstract->asHtml(); ?></div>
