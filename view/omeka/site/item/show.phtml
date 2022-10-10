@@ -99,7 +99,6 @@ $lang = $this->lang();
   <div class="row">
     <div class="col">
       <?php echo $this->pageTitle($item->displayTitle(null, ($filterLocale ? $lang : null)), 2); ?>
-      <?php echo $this->ItemDetailsHelper($item); ?>
       <?php if ($contributors = $item->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
           <?php
           $contributorsArray = [];
@@ -110,10 +109,25 @@ $lang = $this->lang();
           }
           ?>
           <?php if ($contributorsArray): ?>
-            <div class="contributors fst-italic">
+            <div class="contributors fst-italic fw-bold">
               <?php echo implode("; ", $contributorsArray) ?>
             </div>
           <?php endif; ?>
+      <?php endif; ?>
+      <?php
+      $departments = [];
+      foreach ($item->itemSets() as $itemSet) {
+          foreach ($itemSet->value('dcterms:type', ['all' => true]) as $itemSetType) {
+              if ($itemSetType == "Department") {
+                  $departments[] = $itemSet->displayTitle();
+              }
+          }
+      }
+      ?>
+      <?php if ($departments): ?>
+        <div class="departments fw-bold text-muted">
+          <?php echo implode("; ", $departments) ?>
+        </div>
       <?php endif; ?>
       <?php echo $this->SocialShare($item); ?>
     </div>

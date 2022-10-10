@@ -127,8 +127,6 @@ $sortHeadings = [
             <?php echo $item->linkRaw($this->thumbnail($item, 'medium', ['class' => 'browse-thumbnail shadow-sm rounded', 'alt' => $heading]), null, ['class' => 'card-img']); ?>
             <div class="card-body overflow-hidden">
               <h3 class="item-title"><?php echo $item->link($heading, null, ['class'=> 'text-dark text-decoration-none']); ?></h3>
-              <?php echo $this->ItemDetailsHelper($item); ?>
-
               <?php if ($contributors = $item->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
                   <?php
                   $contributorsArray = [];
@@ -139,11 +137,12 @@ $sortHeadings = [
                   }
                   ?>
                   <?php if ($contributorsArray): ?>
-                    <div class="contributors fst-italic">
+                    <div class="contributors fst-italic fw-bold">
                       <?php echo implode("; ", $contributorsArray) ?>
                     </div>
                   <?php endif; ?>
               <?php endif; ?>
+              <?php echo $this->ItemDetailsHelper($item); ?>
               <?php if ($abstract = $item->value('dcterms:abstract', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
               <div class="abstract"><?php echo $abstract->asHtml(); ?></div>
               <?php elseif ($description = $item->value('dcterms:description', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
