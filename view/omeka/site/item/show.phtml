@@ -118,7 +118,7 @@ $lang = $this->lang();
       $departments = [];
       foreach ($item->itemSets() as $itemSet) {
           foreach ($itemSet->value('dcterms:type', ['all' => true]) as $itemSetType) {
-              if ($itemSetType == "Department") {
+              if (($itemSetType == "Department") || ($itemSetType == "Program")) {
                   $departments[] = $itemSet->displayTitle();
               }
           }
