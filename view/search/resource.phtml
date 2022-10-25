@@ -45,23 +45,22 @@ $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translat
       <?php echo $resource->linkRaw($this->thumbnail($resource, 'medium', ['class' => 'browse-thumbnail shadow-sm rounded', 'alt' => $heading]), null, ['class' => 'card-img']); ?>
       <div class="card-body overflow-hidden">
         <h3 class="item-title"><?php echo $resource->link($heading, null, ['class'=> 'text-dark text-decoration-none']); ?></h3>
-        <?php echo $this->ItemDetailsHelper($resource); ?>
-
         <?php if ($contributors = $resource->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-          <div class="contributors fst-italic">
             <?php
-            $i = 1;
-            $len = count($contributors);
+            $contributorsArray = [];
+            foreach ($contributors as $contributor) {
+                if (!str_contains(strtolower($contributor), strtolower("Fashion Institute of Technology, State University of New York"))) {
+                    $contributorsArray[] = $contributor->asHtml();
+                }
+            }
             ?>
-            <?php foreach ($contributors as $contributor): ?>
-              <?php echo $contributor->asHtml(); ?>
-              <?php if ($len > $i): ?>
-                <?php echo "; "; ?>
-              <?php endif; ?>
-              <?php $i++; ?>
-            <?php endforeach; ?>
-          </div>
+            <?php if ($contributorsArray): ?>
+              <div class="contributors fst-italic fw-bold">
+                <?php echo implode("; ", $contributorsArray) ?>
+              </div>
+            <?php endif; ?>
         <?php endif; ?>
+        <?php echo $this->ItemDetailsHelper($resource); ?>
         <?php if ($abstract = $resource->value('dcterms:abstract', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
         <div class="abstract"><?php echo $abstract->asHtml(); ?></div>
         <?php elseif ($description = $resource->value('dcterms:description', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
