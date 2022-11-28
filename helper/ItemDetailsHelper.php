@@ -17,6 +17,7 @@ class ItemDetailsHelper extends AbstractHelper
                 foreach ($itemSet->value('dcterms:type', ['all' => true]) as $itemSetType) {
                     if (($itemSetType == "Department") || ($itemSetType == "Program")) {
                         $departments[] = $itemSet->displayTitle();
+                        break;
                     }
                 }
             }
