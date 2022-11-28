@@ -549,6 +549,9 @@ footer #fit-logo {
   content: "";
   padding-top: 100%;
 }
+.item.resource.show .embed-responsive-video:before {
+  padding-top: 75%;
+}
 
 @media (max-width:767px) {
   .item.resource.show .tooltip {
