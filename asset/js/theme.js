@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
   //Dropdown fix
-  $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+  $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
     if (!$(this).next().hasClass('show')) {
       $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
     }
@@ -8,7 +8,7 @@ $(document).ready(function() {
     $subMenu.toggleClass('show');
 
 
-    $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+    $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
       $('.dropdown-submenu .show').removeClass("show");
     });
 
@@ -84,7 +84,7 @@ $(document).ready(function() {
       let $container = $('#browse-container').infiniteScroll({
         // options
         // use function to set custom URLs
-        path: function() {
+        path: function () {
           return nextURL;
         },
         checkLastPage: '.next',
@@ -96,12 +96,12 @@ $(document).ready(function() {
         history: false,
       });
       // update nextURL on page load
-      $container.on('load.infiniteScroll', function(event, body, path, response) {
+      $container.on('load.infiniteScroll', function (event, body, path, response) {
         history.replaceState(null, null, path.replace('&scroll_request=true', ''));
         updateNextURL(body);
         getLinkData(body);
       });
-      $container.on('append.infiniteScroll', function() {
+      $container.on('append.infiniteScroll', function () {
         updateFocus();
       });
     }
@@ -126,10 +126,10 @@ $(document).ready(function() {
         layoutGrid();
       }
     }
-    $('.btn.list').on("click", function() {
+    $('.btn.list').on("click", function () {
       layoutList();
     });
-    $('.btn.grid').on("click", function() {
+    $('.btn.grid').on("click", function () {
       layoutGrid();
     });
   }
@@ -138,12 +138,12 @@ $(document).ready(function() {
     if (window.matchMedia('(min-width: 768px)').matches) {
       //tooltips
       var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-      var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
       })
     }
     //advance buttons
-    $('#media-sidebar .btnNext').click(function() {
+    $('#media-sidebar .btnNext').click(function () {
       var next = $('#mediaTab .nav-item').has('button.active').next('li');
       if (next.length) {
         $(next).children('button').trigger('click');
@@ -152,7 +152,7 @@ $(document).ready(function() {
       }
     });
     //clipboard
-    $('.clip-button').each(function(index) {
+    $('.clip-button').each(function (index) {
       new ClipboardJS(this);
     });
     //toasts
@@ -163,53 +163,5 @@ $(document).ready(function() {
     }
   }
   //advanced search item set dropdown
-  $('#advanced-search-modal #item-sets option:contains("Select item set…")').text('Select collection…')
-
-  //Page slider glider.js
-  if ($('body').hasClass('page')) {
-    if ($('.glider').length) {
-      $('.glider').each(function(index) {
-        var id = 'glider-' + index;
-        $(this).parent().parent().attr('id', id);
-        new Glider(this, {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          draggable: true,
-          arrows: {
-            prev: '#' + id + ' .btnPrevious',
-            next: '#' + id + ' .btnNext'
-          },
-          responsive: [{
-            // screens greater than >= 576px
-            breakpoint: 576,
-            settings: {
-              // Set to `auto` and provide item width to adjust to viewport
-              slidesToShow: 2,
-              slidesToScroll: 2
-            }
-          }, {
-            // screens greater than >= 768px
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3
-            }
-          }, {
-            breakpoint: 992,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4
-            }
-          }, {
-            breakpoint: 1400,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 5
-            }
-          }]
-        });
-      });
-
-    }
-  }
+  $('#advanced-search-modal #item-sets option:contains("Select item set…")').text('Select collection…');
 });
