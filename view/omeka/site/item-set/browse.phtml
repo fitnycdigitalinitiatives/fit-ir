@@ -100,21 +100,7 @@ $sortHeadings = [
             </h3>
             <?php echo $this->ItemDetailsHelper($itemSet); ?>
 
-            <?php if ($contributors = $itemSet->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-              <div class="contributors fst-italic">
-                <?php
-                $i = 1;
-                $len = count($contributors);
-                ?>
-                <?php foreach ($contributors as $contributor): ?>
-                  <?php echo $contributor->asHtml(); ?>
-                  <?php if ($len > $i): ?>
-                    <?php echo "; "; ?>
-                  <?php endif; ?>
-                  <?php $i++; ?>
-                <?php endforeach; ?>
-              </div>
-            <?php endif; ?>
+            <?php echo $this->CreatorHelper($itemSet); ?>
             <?php if ($abstract = $itemSet->value('dcterms:abstract', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
               <div class="abstract">
                 <?php echo $abstract->asHtml(); ?>

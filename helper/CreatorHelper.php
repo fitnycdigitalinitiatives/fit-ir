@@ -2,13 +2,13 @@
 namespace OmekaTheme\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
-use Omeka\Api\Representation\ItemRepresentation;
+use Omeka\Api\Representation\AbstractResourceEntityRepresentation;
 
 class CreatorHelper extends AbstractHelper
 {
-    public function __invoke(ItemRepresentation $item)
+    public function __invoke(AbstractResourceEntityRepresentation $resource)
     {
-        if ($contributors = $item->value('dcterms:contributor', ['all' => true])) {
+        if ($contributors = $resource->value('dcterms:contributor', ['all' => true])) {
             $creatorList = [];
             foreach ($contributors as $key => $contributor) {
                 if (str_contains($contributor->asHtml(), 'Author') || str_contains($contributor->asHtml(), 'Creator')) {

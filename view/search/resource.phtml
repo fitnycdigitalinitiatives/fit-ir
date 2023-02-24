@@ -40,32 +40,24 @@ $bodyTerm = $this->siteSetting('browse_body_property_term');
 $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => ($filterLocale ? [$lang, ''] : null)]) : $resource->displayTitle(null, ($filterLocale ? [$lang, ''] : null));
 
 ?>
-  <div class="col item-container">
-    <div class="card border-0">
-      <?php echo $resource->linkRaw($this->thumbnail($resource, 'medium', ['class' => 'browse-thumbnail shadow-sm rounded', 'alt' => $heading]), null, ['class' => 'card-img']); ?>
-      <div class="card-body overflow-hidden">
-        <h3 class="item-title"><?php echo $resource->link($heading, null, ['class'=> 'text-dark text-decoration-none']); ?></h3>
-        <?php if ($contributors = $resource->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-            <?php
-            $contributorsArray = [];
-            foreach ($contributors as $contributor) {
-                if (!str_contains(strtolower($contributor), strtolower("Fashion Institute of Technology, State University of New York"))) {
-                    $contributorsArray[] = $contributor->asHtml();
-                }
-            }
-            ?>
-            <?php if ($contributorsArray): ?>
-              <div class="contributors fst-italic fw-bold">
-                <?php echo implode("; ", $contributorsArray) ?>
-              </div>
-            <?php endif; ?>
-        <?php endif; ?>
-        <?php echo $this->ItemDetailsHelper($resource); ?>
-        <?php if ($abstract = $resource->value('dcterms:abstract', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-        <div class="abstract"><?php echo $abstract->asHtml(); ?></div>
-        <?php elseif ($description = $resource->value('dcterms:description', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-        <div class="description"><?php echo $description->asHtml(); ?></div>
-        <?php endif; ?>
-      </div>
+<div class="col item-container">
+  <div class="card border-0">
+    <?php echo $resource->linkRaw($this->thumbnail($resource, 'medium', ['class' => 'browse-thumbnail shadow-sm rounded', 'alt' => $heading]), null, ['class' => 'card-img']); ?>
+    <div class="card-body overflow-hidden">
+      <h3 class="item-title">
+        <?php echo $resource->link($heading, null, ['class' => 'text-dark text-decoration-none']); ?>
+      </h3>
+      <?php echo $this->CreatorHelper($resource); ?>
+      <?php echo $this->ItemDetailsHelper($resource); ?>
+      <?php if ($abstract = $resource->value('dcterms:abstract', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
+        <div class="abstract">
+          <?php echo $abstract->asHtml(); ?>
+        </div>
+      <?php elseif ($description = $resource->value('dcterms:description', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
+        <div class="description">
+          <?php echo $description->asHtml(); ?>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
+</div>

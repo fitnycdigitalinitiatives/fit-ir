@@ -111,23 +111,9 @@ $lang = $this->lang();
   <div class="row">
     <div class="col">
       <?php echo $this->pageTitle($item->displayTitle(null, ($filterLocale ? $lang : null)), 2); ?>
-      <?php if ($contributors = $item->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-        <?php
-        $contributorsArray = []; foreach ($contributors as $contributor) {
-          if (!str_contains(strtolower($contributor), strtolower("Fashion Institute of Technology, State University of New York"))) {
-            $contributorsArray[] = $contributor->asHtml();
-          }
-        }
-        ?>
-        <?php if ($contributorsArray): ?>
-          <div class="contributors fst-italic fw-bold">
-            <?php echo implode(", ", $contributorsArray); ?>
-          </div>
-        <?php endif; ?>
-      <?php endif; ?>
+      <?php echo $this->CreatorHelper($item); ?>
       <?php
-      $departments = [];
-      foreach ($item->itemSets() as $itemSet) {
+      $departments = []; foreach ($item->itemSets() as $itemSet) {
         foreach ($itemSet->value('dcterms:type', ['all' => true]) as $itemSetType) {
           if (($itemSetType == "Department") || ($itemSetType == "Program")) {
             $departments[] = $itemSet->displayTitle();
