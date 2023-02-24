@@ -10,30 +10,30 @@ $query = $this->params()->fromQuery();
 $totalResults = $this->pagination()->getPaginator()->getTotalCount();
 $itemSetShow = isset($itemSet);
 if ($itemSetShow):
-    $this->htmlElement('body')->appendAttribute('class', 'item-set');
-    $query['item_set_id'] = $itemSet->id();
+  $this->htmlElement('body')->appendAttribute('class', 'item-set');
+  $query['item_set_id'] = $itemSet->id();
 endif;
 $sortHeadings = [
-    [
-        'label' => $translate('Title'),
-        'value' => 'dcterms:title'
-    ],
-    [
-        'label' => $translate('Identifier'),
-        'value' => 'dcterms:identifier'
-    ],
-    [
-        'label' => $translate('Class'),
-        'value' => 'resource_class_label'
-    ],
-    [
-        'label' => $translate('Date'),
-        'value' => 'dcterms:date'
-    ],
-    [
-        'label' => $translate('Created'),
-        'value' => 'created'
-    ],
+  [
+    'label' => $translate('Title'),
+    'value' => 'dcterms:title'
+  ],
+  [
+    'label' => $translate('Identifier'),
+    'value' => 'dcterms:identifier'
+  ],
+  [
+    'label' => $translate('Class'),
+    'value' => 'resource_class_label'
+  ],
+  [
+    'label' => $translate('Date'),
+    'value' => 'dcterms:date'
+  ],
+  [
+    'label' => $translate('Created'),
+    'value' => 'created'
+  ],
 ];
 ?>
 
@@ -41,18 +41,23 @@ $sortHeadings = [
   <div class="row justify-content-center">
     <div class="col">
       <?php if ($itemSetShow): ?>
-          <?php echo $this->pageTitle($itemSet->displayTitle(null, ($filterLocale ? $lang : null)), 2); ?>
+        <?php echo $this->pageTitle($itemSet->displayTitle(null, ($filterLocale ? $lang : null)), 2); ?>
       <?php else: ?>
-          <?php echo $this->pageTitle($translate('Items'), 2); ?>
+        <?php echo $this->pageTitle($translate('Items'), 2); ?>
       <?php endif; ?>
       <?php if ($totalResults > 0): ?>
         <?php if ($this->searchFilters()): ?>
           <div class="results mb-3">
-            Showing <?php echo number_format($totalResults); ?> result<?php echo ($totalResults == 1)? '' : 's'; ?> for: <?php echo $this->searchFilters(); ?>
+            Showing
+            <?php echo number_format($totalResults); ?>
+            <?php echo ($totalResults == 1) ? ' result' : ' results'; ?> for:
+            <?php echo $this->searchFilters(); ?>
           </div>
         <?php else: ?>
           <div class="results mb-3">
-            Showing <?php echo number_format($totalResults); ?> result<?php echo ($totalResults == 1)? '' : 's'; ?>
+            Showing
+            <?php echo number_format($totalResults); ?>
+            <?php echo ($totalResults == 1) ? ' result' : ' results'; ?>
           </div>
         <?php endif; ?>
         <?php // check if solr/search module is activated by checking if the helper is present?>
@@ -60,16 +65,20 @@ $sortHeadings = [
           <?php $facetsForBrowse = $this->getFacetsForBrowse($query, $itemSetShow); ?>
           <?php if ($facetsForBrowse['facets']): ?>
             <!-- filter  -->
-            <button id="filter-button" class="btn btn-fit-pink floating-action" type="button" data-bs-toggle="offcanvas" data-bs-target="#searchFilters" aria-controls="searchFilters" aria-label="Filter results">
+            <button id="filter-button" class="btn btn-fit-pink floating-action" type="button" data-bs-toggle="offcanvas"
+              data-bs-target="#searchFilters" aria-controls="searchFilters" aria-label="Filter results">
               <span class="action-container">
                 <i class="fas fa-filter" aria-hidden="true" title="Filter results">
                 </i>
                 Filter results
               </span>
             </button>
-            <div class="offcanvas offcanvas-start shadow border-end-0" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="searchFilters" aria-labelledby="searchFiltersLabel">
+            <div class="offcanvas offcanvas-start shadow border-end-0" data-bs-scroll="true" data-bs-backdrop="false"
+              tabindex="-1" id="searchFilters" aria-labelledby="searchFiltersLabel">
               <div class="offcanvas-header border-bottom">
-                <h3 class="offcanvas-title" id="searchFiltersLabel"><?php echo $this->translate('Search Filters'); ?></h3>
+                <h3 class="offcanvas-title" id="searchFiltersLabel">
+                  <?php echo $this->translate('Search Filters'); ?>
+                </h3>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div class="offcanvas-body p-0">
@@ -80,7 +89,8 @@ $sortHeadings = [
         <?php endif; ?>
       <?php else: ?>
         <div class="results mb-3">
-          Showing 0 results for: <?php echo $this->searchFilters(); ?>
+          Showing 0 results for:
+          <?php echo $this->searchFilters(); ?>
         </div>
         <p class="lead">
           <?php echo $this->translate('We\'re sorry, but your search did not return any results. Please try searching again, or browsing through the items or collections.'); ?>
@@ -94,7 +104,9 @@ $sortHeadings = [
     <div class="row justify-content-center">
       <div class="col">
         <ul class="nav justify-content-between browse-controls">
-          <li class="nav-item"><?php echo $this->sortSelector($sortHeadings); ?></li>
+          <li class="nav-item">
+            <?php echo $this->sortSelector($sortHeadings); ?>
+          </li>
           <li class="nav-item d-none d-md-block">
             <div class="btn-group" role="group" aria-label="Layout View">
               <button type="button" class="btn btn-secondary active list" aria-pressed="true" aria-label="List View">
@@ -120,33 +132,25 @@ $sortHeadings = [
       $headingTerm = $this->siteSetting('browse_heading_property_term');
       $bodyTerm = $this->siteSetting('browse_body_property_term');
       foreach ($items as $item):
-          $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => ($filterLocale ? [$lang, ''] : null)]) : $item->displayTitle(null, ($filterLocale ? [$lang, ''] : null));
-      ?>
+        $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => ($filterLocale ? [$lang, ''] : null)]) : $item->displayTitle(null, ($filterLocale ? [$lang, ''] : null));
+        ?>
         <div class="col item-container">
           <div class="card border-0">
             <?php echo $item->linkRaw($this->thumbnail($item, 'medium', ['class' => 'browse-thumbnail shadow-sm rounded', 'alt' => $heading]), null, ['class' => 'card-img']); ?>
             <div class="card-body overflow-hidden">
-              <h3 class="item-title"><?php echo $item->link($heading, null, ['class'=> 'text-dark text-decoration-none']); ?></h3>
-              <?php if ($contributors = $item->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-                  <?php
-                  $contributorsArray = [];
-                  foreach ($contributors as $contributor) {
-                      if (!str_contains(strtolower($contributor), strtolower("Fashion Institute of Technology, State University of New York"))) {
-                          $contributorsArray[] = $contributor->asHtml();
-                      }
-                  }
-                  ?>
-                  <?php if ($contributorsArray): ?>
-                    <div class="contributors fst-italic fw-bold">
-                      <?php echo implode("; ", $contributorsArray) ?>
-                    </div>
-                  <?php endif; ?>
-              <?php endif; ?>
+              <h3 class="item-title">
+                <?php echo $item->link($heading, null, ['class' => 'text-dark text-decoration-none']); ?>
+              </h3>
+              <?php echo $this->CreatorHelper($item); ?>
               <?php echo $this->ItemDetailsHelper($item); ?>
               <?php if ($abstract = $item->value('dcterms:abstract', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-              <div class="abstract"><?php echo $abstract->asHtml(); ?></div>
+                <div class="abstract">
+                  <?php echo $abstract->asHtml(); ?>
+                </div>
               <?php elseif ($description = $item->value('dcterms:description', ['lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-              <div class="description"><?php echo $description->asHtml(); ?></div>
+                <div class="description">
+                  <?php echo $description->asHtml(); ?>
+                </div>
               <?php endif; ?>
             </div>
           </div>

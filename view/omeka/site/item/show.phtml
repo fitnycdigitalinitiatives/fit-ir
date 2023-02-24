@@ -6,9 +6,9 @@ $embedMedia = $this->siteSetting('item_media_embed', false);
 $itemMedia = $item->media();
 //remove captions files from itemMedia so it doesn't display
 foreach ($itemMedia as $key => $media) {
-    if ($media->mediaType() == "text/vtt") {
-        unset($itemMedia[$key]);
-    }
+  if ($media->mediaType() == "text/vtt") {
+    unset($itemMedia[$key]);
+  }
 }
 $this->headScript()->appendFile('https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js', 'text/javascript', ['defer' => 'defer']);
 
@@ -28,12 +28,13 @@ $lang = $this->lang();
               <div class="tab-content" id="mediaTabContent">
                 <?php $panel_id = 1; ?>
                 <?php foreach ($itemMedia as $media): ?>
-                  <div class="tab-pane fade <?php echo($panel_id == 1 ? ' show active' : ''); ?>" id="media-<?php echo $panel_id; ?>" role="tabpanel" aria-labelledby="media-<?php echo $panel_id; ?>-tab">
+                  <div class="tab-pane fade <?php echo ($panel_id == 1 ? ' show active' : ''); ?>"
+                    id="media-<?php echo $panel_id; ?>" role="tabpanel" aria-labelledby="media-<?php echo $panel_id; ?>-tab">
                     <?php echo $media->render(); ?>
                   </div>
-                <?php
+                  <?php
                   $panel_id++;
-                  endforeach;
+                endforeach;
                 ?>
               </div>
             </div>
@@ -43,16 +44,21 @@ $lang = $this->lang();
               <?php $tab_id = 1; ?>
               <?php foreach ($itemMedia as $media): ?>
                 <li class="nav-item p-md-0 mb-md-3" role="presentation">
-                  <button class="nav-link text-secondary border-0 shadow-sm rounded p-0<?php echo($tab_id == 1 ? ' active' : ''); ?>" id="media-<?php echo $tab_id; ?>-tab" data-bs-toggle="tab" data-bs-target="#media-<?php echo $tab_id; ?>" type="button" role="tab" aria-controls="media-<?php echo $tab_id; ?>" aria-selected="<?php echo($tab_id == 1 ? 'true' : 'false'); ?>">
+                  <button
+                    class="nav-link text-secondary border-0 shadow-sm rounded p-0<?php echo ($tab_id == 1 ? ' active' : ''); ?>"
+                    id="media-<?php echo $tab_id; ?>-tab" data-bs-toggle="tab" data-bs-target="#media-<?php echo $tab_id; ?>"
+                    type="button" role="tab" aria-controls="media-<?php echo $tab_id; ?>"
+                    aria-selected="<?php echo ($tab_id == 1 ? 'true' : 'false'); ?>">
                     <?php echo $this->thumbnail($media, 'medium', ['class' => 'rounded img-fluid', 'alt' => $media->displayTitle(), 'title' => $media->displayTitle(), 'data-bs-toggle' => 'tooltip']); ?>
                   </button>
                 </li>
                 <?php
-                  $tab_id++;
-                  endforeach;
-                ?>
+                $tab_id++;
+              endforeach;
+              ?>
             </ul>
-            <button class="btn-arrow btnNext border-0 bg-transparent text-secondary d-none d-md-block mx-auto" type="button" aria-controls="mediaTabContent" aria-label="Next">
+            <button class="btn-arrow btnNext border-0 bg-transparent text-secondary d-none d-md-block mx-auto" type="button"
+              aria-controls="mediaTabContent" aria-label="Next">
               <i class="fas fa-chevron-down" title="Next" aria-hidden="true">
               </i>
             </button>
@@ -77,14 +83,20 @@ $lang = $this->lang();
             <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100 h-100">
 
               <!-- Then put toasts within -->
-              <div class="toast mx-1 bg-white" id="embargo" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+              <div class="toast mx-1 bg-white" id="embargo" role="alert" aria-live="assertive" aria-atomic="true"
+                data-bs-autohide="false">
                 <div class="toast-header bg-danger text-white">
                   <strong class="me-auto">Item Not Available</strong>
-                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
                 </div>
                 <?php $mailSubject = 'Accessing "' . $item->displayTitle(null, ($filterLocale ? $lang : null)) . '" (' . $escape($item->url()) . ')'; ?>
                 <div class="toast-body">
-                  At the request of the author/creator, this work is not currently available for public access. If you would like more details about the access conditions for this item, or if you are a member of the FIT community seeking access to this item, please send us a message at <a href="mailto:repository@fitnyc.edu?subject=<?php echo urlencode($mailSubject); ?>" target="_blank">repository@fitnyc.edu</a>.
+                  At the request of the author/creator, this work is not currently available for public access. If you would
+                  like more details about the access conditions for this item, or if you are a member of the FIT community
+                  seeking access to this item, please send us a message at <a
+                    href="mailto:repository@fitnyc.edu?subject=<?php echo urlencode($mailSubject); ?>"
+                    target="_blank">repository@fitnyc.edu</a>.
                 </div>
               </div>
             </div>
@@ -100,28 +112,27 @@ $lang = $this->lang();
     <div class="col">
       <?php echo $this->pageTitle($item->displayTitle(null, ($filterLocale ? $lang : null)), 2); ?>
       <?php if ($contributors = $item->value('dcterms:contributor', ['all' => true, 'lang' => ($filterLocale ? [$lang, ''] : null)])): ?>
-          <?php
-          $contributorsArray = [];
-          foreach ($contributors as $contributor) {
-              if (!str_contains(strtolower($contributor), strtolower("Fashion Institute of Technology, State University of New York"))) {
-                  $contributorsArray[] = $contributor->asHtml();
-              }
+        <?php
+        $contributorsArray = []; foreach ($contributors as $contributor) {
+          if (!str_contains(strtolower($contributor), strtolower("Fashion Institute of Technology, State University of New York"))) {
+            $contributorsArray[] = $contributor->asHtml();
           }
-          ?>
-          <?php if ($contributorsArray): ?>
-            <div class="contributors fst-italic fw-bold">
-              <?php echo implode("; ", $contributorsArray) ?>
-            </div>
-          <?php endif; ?>
+        }
+        ?>
+        <?php if ($contributorsArray): ?>
+          <div class="contributors fst-italic fw-bold">
+            <?php echo implode(", ", $contributorsArray); ?>
+          </div>
+        <?php endif; ?>
       <?php endif; ?>
       <?php
       $departments = [];
       foreach ($item->itemSets() as $itemSet) {
-          foreach ($itemSet->value('dcterms:type', ['all' => true]) as $itemSetType) {
-              if (($itemSetType == "Department") || ($itemSetType == "Program")) {
-                  $departments[] = $itemSet->displayTitle();
-              }
+        foreach ($itemSet->value('dcterms:type', ['all' => true]) as $itemSetType) {
+          if (($itemSetType == "Department") || ($itemSetType == "Program")) {
+            $departments[] = $itemSet->displayTitle();
           }
+        }
       }
       ?>
       <?php if ($departments): ?>
@@ -142,17 +153,21 @@ $lang = $this->lang();
       <?php echo $item->displayValues(); ?>
       <?php if (!$embedMedia): ?>
         <?php if ($itemMedia): ?>
-        <div class="media-list">
-          <h4>Files</h4>
+          <div class="media-list">
+            <h4>Files</h4>
             <?php foreach ($itemMedia as $media): ?>
-                <?php echo $media->linkPretty(); ?>
+              <?php echo $media->linkPretty(); ?>
             <?php endforeach; ?>
-        </div>
+          </div>
         <?php else: ?>
           <h4>Files</h4>
           <?php $mailSubject = 'Accessing "' . $item->displayTitle(null, ($filterLocale ? $lang : null)) . '" (' . $escape($item->url()) . ')'; ?>
           <p>
-            At the request of the author/creator, this work is not currently available for public access. If you would like more details about the access conditions for this item, or if you are a member of the FIT community seeking access to this item, please send us a message at <a href="mailto:repository@fitnyc.edu?subject=<?php echo urlencode($mailSubject); ?>" target="_blank">repository@fitnyc.edu</a>.
+            At the request of the author/creator, this work is not currently available for public access. If you would like
+            more details about the access conditions for this item, or if you are a member of the FIT community seeking
+            access to this item, please send us a message at <a
+              href="mailto:repository@fitnyc.edu?subject=<?php echo urlencode($mailSubject); ?>"
+              target="_blank">repository@fitnyc.edu</a>.
           </p>
         <?php endif; ?>
       <?php endif; ?>
@@ -166,27 +181,35 @@ $lang = $this->lang();
     </div>
     <div class="col-lg-5 col-xxl-4">
       <div class="property">
-        <h4><?php echo $translate('Citation'); ?></h4>
+        <h4>
+          <?php echo $translate('Citation'); ?>
+        </h4>
         <?php echo $this->CitationHelper($item); ?>
       </div>
       <div class="property">
-          <?php $itemSets = $item->itemSets(); ?>
-          <?php if (count($itemSets) > 0): ?>
-          <h4><?php echo $translate('Collections'); ?></h4>
+        <?php $itemSets = $item->itemSets(); ?>
+        <?php if (count($itemSets) > 0): ?>
+          <h4>
+            <?php echo $translate('Collections'); ?>
+          </h4>
           <?php foreach ($itemSets as $itemSet): ?>
-          <div class="value"><a href="<?php echo $escape($itemSet->url()); ?>"><?php echo $itemSet->displayTitle(null, ($filterLocale ? $lang : null)); ?></a></div>
+            <div class="value"><a href="<?php echo $escape($itemSet->url()); ?>"><?php echo $itemSet->displayTitle(null, ($filterLocale ? $lang : null)); ?></a></div>
           <?php endforeach; ?>
-          <?php endif; ?>
+        <?php endif; ?>
       </div>
       <?php if (($this->siteSetting('show_attached_pages', true)) && ($sitePages = $item->sitePages($site->id()))): ?>
-      <div class="property">
-          <h4><?php echo $translate('Site pages'); ?></h4>
+        <div class="property">
+          <h4>
+            <?php echo $translate('Site pages'); ?>
+          </h4>
           <div class="values">
-              <?php foreach ($sitePages as $sitePage): ?>
-              <div class="value"><?php echo $sitePage->link($sitePage->title()); ?></div>
-              <?php endforeach; ?>
+            <?php foreach ($sitePages as $sitePage): ?>
+              <div class="value">
+                <?php echo $sitePage->link($sitePage->title()); ?>
+              </div>
+            <?php endforeach; ?>
           </div>
-      </div>
+        </div>
       <?php endif; ?>
     </div>
   </div>
