@@ -151,6 +151,19 @@ $(document).ready(function () {
         $("#mediaTab .nav-item:first").find('button').trigger('click');
       }
     });
+    // Pause video when changing tabs
+    $('#media-sidebar .nav-link').click(function () {
+      var selectedTab = $(this).data('bs-target');
+      $('#mediaTabContent .tab-pane:not(' + selectedTab + ') .youtube').each(function () {
+        $(this)[0].contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      });
+      $('#mediaTabContent .tab-pane:not(' + selectedTab + ') .vimeo').each(function () {
+        $(this)[0].contentWindow.postMessage('{"method":"pause"}', '*');
+      });
+      $('#mediaTabContent .tab-pane:not(' + selectedTab + ') .vjs-tech').each(function () {
+        $(this).get(0).pause();
+      });
+    });
     //clipboard
     $('.clip-button').each(function (index) {
       new ClipboardJS(this);
