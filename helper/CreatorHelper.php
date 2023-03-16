@@ -11,7 +11,7 @@ class CreatorHelper extends AbstractHelper
         if ($contributors = $resource->value('dcterms:contributor', ['all' => true])) {
             $creatorList = [];
             foreach ($contributors as $key => $contributor) {
-                if (str_contains($contributor->asHtml(), 'Author') || str_contains($contributor->asHtml(), 'Creator')) {
+                if (str_contains($contributor->asHtml(), 'Author') || str_contains($contributor->asHtml(), 'Creator') || str_contains($contributor->asHtml(), 'Artist')) {
                     if (!in_array($contributor, $creatorList)) {
                         $creatorList[] = $contributor;
                     }
