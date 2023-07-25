@@ -113,7 +113,8 @@ $lang = $this->lang();
       <?php echo $this->pageTitle($item->displayTitle(null, ($filterLocale ? $lang : null)), 2); ?>
       <?php echo $this->CreatorHelper($item); ?>
       <?php
-      $departments = []; foreach ($item->itemSets() as $itemSet) {
+      $departments = [];
+      foreach ($item->itemSets() as $itemSet) {
         foreach ($itemSet->value('dcterms:type', ['all' => true]) as $itemSetType) {
           if (($itemSetType == "Department") || ($itemSetType == "Program")) {
             $departments[] = $itemSet->displayTitle();
@@ -157,13 +158,6 @@ $lang = $this->lang();
           </p>
         <?php endif; ?>
       <?php endif; ?>
-
-      <?php
-      $page = $this->params()->fromQuery('page', 1);
-      $property = $this->params()->fromQuery('property');
-      $subjectValues = $item->displaySubjectValues($page, 25, $property);
-      ?>
-      <!-- Removed linked resources -->
     </div>
     <div class="col-lg-5 col-xxl-4">
       <div class="property">

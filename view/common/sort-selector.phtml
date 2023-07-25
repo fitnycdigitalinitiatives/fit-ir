@@ -10,10 +10,17 @@ if (!$sortOrderQuery) {
 ?>
 <form class="sorting input-group" action="">
     <select class="form-select" name="sort_by" aria-label="<?php echo $translate('Sort by'); ?>">
-    <?php foreach ($sortBy as $sortByHeading): ?>
-        <?php $selected = ($sortByQuery === $sortByHeading['value']) ? 'selected' : ''; ?>
-        <option value="<?php echo $escape($sortByHeading['value']); ?>" <?php echo $selected; ?>><?php echo $sortByHeading['label']; ?></option>
-    <?php endforeach; ?>
+        <?php if (!$sortBy): ?>
+            <?php foreach ($sortConfig as $sortBy => $label): ?>
+                <option value="<?php echo $escape($sortBy); ?>" <?php echo ($sortByQuery === $sortBy) ? ' selected' : ''; ?>><?php echo $escape($label); ?></option>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <?php foreach ($sortBy as $sortByHeading): ?>
+                <?php $selected = ($sortByQuery === $sortByHeading['value']) ? 'selected' : ''; ?>
+                <option value="<?php echo $escape($sortByHeading['value']); ?>" <?php echo $selected; ?>><?php echo $sortByHeading['label']; ?></option>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
     </select>
     <?php echo $this->queryToHiddenInputs(['sort_by', 'sort_order']); ?>
     <select class="form-select" name="sort_order" aria-label="<?php echo $translate('Sort order'); ?>">
@@ -21,7 +28,7 @@ if (!$sortOrderQuery) {
         <option value="desc" <?php echo ($sortOrderQuery === 'desc') ? 'selected' : ''; ?>><?php echo $translate('Descending'); ?></option>
     </select>
     <button class="btn btn-secondary" type="submit" aria-label="<?php echo $translate('Sort'); ?>">
-      <i class="fas fa-sort" aria-hidden="true" title="<?php echo $translate('Sort'); ?>">
-      </i>
+        <i class="fas fa-sort" aria-hidden="true" title="<?php echo $translate('Sort'); ?>">
+        </i>
     </button>
 </form>
