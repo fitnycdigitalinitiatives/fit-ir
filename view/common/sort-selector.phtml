@@ -10,17 +10,9 @@ if (!$sortOrderQuery) {
 ?>
 <form class="sorting input-group" action="">
     <select class="form-select" name="sort_by" aria-label="<?php echo $translate('Sort by'); ?>">
-        <?php if (!$sortBy): ?>
-            <?php foreach ($sortConfig as $sortBy => $label): ?>
-                <option value="<?php echo $escape($sortBy); ?>" <?php echo ($sortByQuery === $sortBy) ? ' selected' : ''; ?>><?php echo $escape($label); ?></option>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <?php foreach ($sortBy as $sortByHeading): ?>
-                <?php $selected = ($sortByQuery === $sortByHeading['value']) ? 'selected' : ''; ?>
-                <option value="<?php echo $escape($sortByHeading['value']); ?>" <?php echo $selected; ?>><?php echo $sortByHeading['label']; ?></option>
-            <?php endforeach; ?>
-        <?php endif; ?>
-
+        <?php foreach ($sortConfig as $sortBy => $label): ?>
+            <option value="<?php echo $escape($sortBy); ?>" <?php echo ($sortByQuery === $sortBy) ? ' selected' : ''; ?>><?php echo $escape($label); ?></option>
+        <?php endforeach; ?>
     </select>
     <?php echo $this->queryToHiddenInputs(['sort_by', 'sort_order']); ?>
     <select class="form-select" name="sort_order" aria-label="<?php echo $translate('Sort order'); ?>">
