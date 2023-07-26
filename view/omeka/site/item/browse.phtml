@@ -63,7 +63,7 @@ $sortHeadings = [
         <?php // check if solr/search module is activated by checking if the helper is present?>
         <?php if (($this->getHelperPluginManager()->has('getFacetsForBrowse')) && (!array_key_exists('scroll_request', $query))): ?>
           <?php $facetsForBrowse = $this->getFacetsForBrowse($query, $itemSetShow); ?>
-          <?php if ($facetsForBrowse['facets']): ?>
+          <?php if ($facetsForBrowse && $facetsForBrowse['facets']): ?>
             <!-- filter  -->
             <button id="filter-button" class="btn btn-fit-pink floating-action" type="button" data-bs-toggle="offcanvas"
               data-bs-target="#searchFilters" aria-controls="searchFilters" aria-label="Filter results">
