@@ -112,7 +112,7 @@ $sortHeadings = [
             <?php endif; ?>
             <div class="item-count collection-search">
               <span class="fst-italic">
-                <?php echo $itemSet->itemCount() . " items"; ?>
+                <?php echo $this->api()->search('items', ['item_set_id' => $itemSet->id(), 'site_id' => $this->currentSite()->id(), 'limit' => 0])->getTotalResults() . " items"; ?>
               </span>
 
               <button class="text-dark border-0 bg-transparent" data-bs-toggle="modal"
@@ -128,7 +128,8 @@ $sortHeadings = [
                   <div class="modal-content">
                     <div class="modal-header">
                       <h4 class="modal-title" id="collectionSearchModalLabel-<?php echo $collectionCount; ?>">Search the
-                        <?php echo $heading; ?> collection</h4>
+                        <?php echo $heading; ?> collection
+                      </h4>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- check if solr/search module is activated by checking if the helper is present, if not use default search -->
