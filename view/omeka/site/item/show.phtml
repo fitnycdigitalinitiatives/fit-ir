@@ -8,6 +8,8 @@ $itemMedia = $item->media();
 foreach ($itemMedia as $key => $media) {
   if ($media->mediaType() == "text/vtt") {
     unset($itemMedia[$key]);
+  } elseif (strtolower($media->displayTitle()) == "release form") {
+    unset($itemMedia[$key]);
   }
 }
 $this->headScript()->appendFile('https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js', 'text/javascript', ['defer' => 'defer']);
@@ -173,7 +175,9 @@ $lang = $this->lang();
             <?php echo $translate('Collections'); ?>
           </h4>
           <?php foreach ($itemSets as $itemSet): ?>
-            <div class="value"><a href="<?php echo $escape($itemSet->url()); ?>"><?php echo $itemSet->displayTitle(null, ($filterLocale ? $lang : null)); ?></a></div>
+            <div class="value"><a href="<?php echo $escape($itemSet->url()); ?>">
+                <?php echo $itemSet->displayTitle(null, ($filterLocale ? $lang : null)); ?>
+              </a></div>
           <?php endforeach; ?>
         <?php endif; ?>
       </div>

@@ -90,6 +90,7 @@ $sortHeadings = [
     foreach ($itemSets as $itemSet):
       $heading = $headingTerm ? $itemSet->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => ($filterLocale ? [$lang, ''] : null)]) : $itemSet->displayTitle(null, ($filterLocale ? [$lang, ''] : null));
       $body = $bodyTerm ? $itemSet->value($bodyTerm, ['lang' => ($filterLocale ? [$lang, ''] : null)]) : $itemSet->displayDescription(null, ($filterLocale ? [$lang, ''] : null));
+      $count = $this->api()->search('items', ['item_set_id' => $itemSet->id(), 'site_id' => $this->currentSite()->id(), 'limit' => 0])->getTotalResults();
       ?>
       <div class="col item-container">
         <div class="card border-0">
@@ -112,7 +113,7 @@ $sortHeadings = [
             <?php endif; ?>
             <div class="item-count collection-search">
               <span class="fst-italic">
-                <?php echo $this->api()->search('items', ['item_set_id' => $itemSet->id(), 'site_id' => $this->currentSite()->id(), 'limit' => 0])->getTotalResults() . " items"; ?>
+                <?php echo $count . " items"; ?>
               </span>
 
               <button class="text-dark border-0 bg-transparent" data-bs-toggle="modal"
