@@ -40,7 +40,6 @@ $this->headScript()
   <div class="row justify-content-center results-header">
     <div class="col">
       <?php echo $this->pageTitle($this->translate('Search'), 2); ?>
-      <?php echo $this->messages(); ?>
       <?php if (isset($response)): ?>
         <?php $totalResults = $response->getTotalResults(); ?>
         <?php if ($totalResults > 0): ?>
@@ -80,6 +79,15 @@ $this->headScript()
             <?php echo $this->translate('We\'re sorry, but your search did not return any results. Please try searching again, or browsing through the items or collections.'); ?>
           </p>
         <?php endif; ?>
+      <?php else: ?>
+        <p class="lead">
+          We're sorry, but there was an error during your search. Please try searching again, or browsing through the
+          items or collections. Please contact us at <a href="mailto:repository@fitnyc.edu">repository@fitnyc.edu</a> if
+          you continue to run into trouble.
+        </p>
+        <p>
+          <?php echo $this->messages(); ?>
+        </p>
       <?php endif; ?>
     </div>
   </div>
