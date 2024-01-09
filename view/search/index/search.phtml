@@ -34,7 +34,6 @@ $this->htmlElement('body')->appendAttribute('class', 'resource search');
 $escape = $this->plugin('escapeHtml');
 $this->headScript()
   ->appendFile($this->assetUrl('js/search.js', 'Search'));
-$totalResults = $response->getTotalResults();
 ?>
 
 <div class="container pt-2 pb-3 pt-md-5 pb-md-4">
@@ -43,6 +42,7 @@ $totalResults = $response->getTotalResults();
       <?php echo $this->pageTitle($this->translate('Search'), 2); ?>
       <?php echo $this->messages(); ?>
       <?php if (isset($response)): ?>
+        <?php $totalResults = $response->getTotalResults(); ?>
         <?php if ($totalResults > 0): ?>
           <div class="results">
             Showing
