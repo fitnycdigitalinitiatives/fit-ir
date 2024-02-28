@@ -1,6 +1,9 @@
 <?php
 $this->htmlElement('body')->appendAttribute('class', 'page');
 $this->pageTitle($page->title(), 2);
+if ((strtolower($page->title()) == "home") && ($summary = $site->summary())) {
+  $this->headMeta()->appendName('description', nl2br($this->escapeHtml($summary)));
+}
 $showPagePagination = $this->siteSetting('show_page_pagination', true);
 ?>
 
@@ -9,16 +12,20 @@ $nav = $site->publicNav();
 $container = $nav->getContainer();
 $activePage = $nav->findActive($container);
 if ($activePage):
-?>
-    <?php if ($activePage['depth'] !== 0): ?>
-    <nav class="breadcrumbs"><?php echo $nav->breadcrumbs(); ?></nav>
-    <?php endif; ?>
+  ?>
+  <?php if ($activePage['depth'] !== 0): ?>
+    <nav class="breadcrumbs">
+      <?php echo $nav->breadcrumbs(); ?>
+    </nav>
+  <?php endif; ?>
 <?php endif; ?>
 
 <?php if ($activePage): ?>
-    <?php if ($this->displayNavigation && $activePage['page']->hasPages()): ?>
-    <nav class="sub-menu"><?php echo $nav->menu()->renderSubMenu(); ?></nav>
-    <?php endif; ?>
+  <?php if ($this->displayNavigation && $activePage['page']->hasPages()): ?>
+    <nav class="sub-menu">
+      <?php echo $nav->menu()->renderSubMenu(); ?>
+    </nav>
+  <?php endif; ?>
 <?php endif; ?>
 
 <?php $this->trigger('view.show.before'); ?>
@@ -29,5 +36,5 @@ if ($activePage):
 </div>
 <?php $this->trigger('view.show.after'); ?>
 <?php if ($showPagePagination): ?>
-<?php echo $this->sitePagePagination(); ?>
+  <?php echo $this->sitePagePagination(); ?>
 <?php endif; ?>
