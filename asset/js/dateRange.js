@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   if (document.getElementById('date-facet-slider')) {
     var slider = document.getElementById('date-facet-slider');
     var min = $(slider).data('min');
@@ -8,12 +8,16 @@ $(document).ready(function() {
     noUiSlider.create(slider, {
       start: [min, max],
       step: 1,
+      handleAttributes: [
+        { 'aria-label': 'Date Min' },
+        { 'aria-label': 'Date Max' },
+      ],
       range: {
         'min': min,
         'max': max
       }
     });
-    slider.noUiSlider.on('update', function(values, handle) {
+    slider.noUiSlider.on('update', function (values, handle) {
       var value = values[handle];
 
       if (handle) {
@@ -22,14 +26,14 @@ $(document).ready(function() {
         minInput.value = Math.round(value);
       }
     });
-    minInput.addEventListener('change', function() {
+    minInput.addEventListener('change', function () {
       slider.noUiSlider.set([this.value, null]);
     });
 
-    maxInput.addEventListener('change', function() {
+    maxInput.addEventListener('change', function () {
       slider.noUiSlider.set([null, this.value]);
     });
-    $('#dateRangeFacet').submit(function(event) {
+    $('#dateRangeFacet').submit(function (event) {
       event.preventDefault();
       let url = new URL($(this).attr('action'));
       url.searchParams.append($(minInput).attr('name'), $(minInput).val());
