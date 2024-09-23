@@ -1,20 +1,22 @@
 $(document).ready(function () {
   if (document.getElementById('date-facet-slider')) {
     var slider = document.getElementById('date-facet-slider');
-    var min = $(slider).data('min');
-    var max = $(slider).data('max');
+    let totalMin = $(slider).data('totalmin');
+    let totalMax = $(slider).data('totalmax');
+    let currentMin = $(slider).data('currentmin');
+    let currentMax = $(slider).data('currentmax');
     var minInput = document.getElementById('dateRangeMin');
     var maxInput = document.getElementById('dateRangeMax');
     noUiSlider.create(slider, {
-      start: [min, max],
+      start: [currentMin, currentMax],
       step: 1,
       handleAttributes: [
         { 'aria-label': 'Date Min' },
         { 'aria-label': 'Date Max' },
       ],
       range: {
-        'min': min,
-        'max': max
+        'min': totalMin,
+        'max': totalMax
       }
     });
     slider.noUiSlider.on('update', function (values, handle) {

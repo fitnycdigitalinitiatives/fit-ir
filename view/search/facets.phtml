@@ -33,38 +33,67 @@ $this->headScript()->appendFile($this->assetUrl('js/dateRange.js'));
     <div class="card rounded-0 border-start-0 border-end-0">
       <h4 class="card-header"><?php echo $this->translate('Active Filters'); ?></h4>
       <ul class="list-group list-group-flush">
-      <?php foreach ($queryFacets as $queryFacetName => $queryFacetValues): ?>
-        <?php $subArray = $facets[$queryFacetName]; ?>
-        <?php foreach ($queryFacetValues as $queryFacetValue): ?>
-          <?php $keyMatch = array_search($queryFacetValue, array_column($facets[$queryFacetName], 'value')); ?>
-          <?php unset($subArray[$keyMatch]); ?>
-          <?php echo $this->facetLink($queryFacetName, array('value' => $queryFacetValue, 'count' => null)); ?>
+        <?php foreach ($queryFacets as $queryFacetName => $queryFacetValues): ?>
+          <?php $subArray = $facets[$queryFacetName]; ?>
+          <?php foreach ($queryFacetValues as $queryFacetValue): ?>
+            <?php $keyMatch = array_search($queryFacetValue, array_column($facets[$queryFacetName], 'value')); ?>
+            <?php unset($subArray[$keyMatch]); ?>
+            <?php echo $this->facetLink($queryFacetName, array('value' => $queryFacetValue, 'count' => null)); ?>
+          <?php endforeach; ?>
+          <?php $facets[$queryFacetName] = $subArray; ?>
         <?php endforeach; ?>
-        <?php $facets[$queryFacetName] = $subArray; ?>
-      <?php endforeach; ?>
       </ul>
     </div>
   <?php endif; ?>
-  <?php // check if date facet stats exist and check if the min and max are not the same because if they are there is no need for a range?>
-  <?php if ((!empty($dateFacetStats)) && (!empty($dateFacetStats["min"])) && (!empty($dateFacetStats["max"])) && ($dateFacetStats["min"] != $dateFacetStats["max"])): ?>
-    <?php (isset($queryParams['date_range_start']) && ($queryParams['date_range_start'][0]) && ($queryParams['date_range_start'][0] > $dateFacetStats["min"])) ? ($min = $queryParams['date_range_start'][0]) : ($min = $dateFacetStats["min"]);?>
-    <?php (isset($queryParams['date_range_end']) && ($queryParams['date_range_end'][0]) && ($queryParams['date_range_end'][0] < $dateFacetStats["max"])) ? ($max = $queryParams['date_range_end'][0]) : ($max = $dateFacetStats["max"]);?>
+  <?php
+  $currentMin = 0;
+  $currentMax = 0;
+  $totalMin = 0;
+  $totalMax = 0;
+  if ((!empty($dateFacetStats)) && (!empty($dateFacetStats["min"])) && (!empty($dateFacetStats["max"]))) {
+    if (isset($queryParams['date_range_start']) && ($queryParams['date_range_start'][0]) && ($queryParams['date_range_start'][0] > $dateFacetStats["min"])) {
+      $currentMin = $queryParams['date_range_start'][0];
+    } else {
+      $currentMin = $dateFacetStats["min"];
+    }
+    if (isset($queryParams['date_range_end']) && ($queryParams['date_range_end'][0]) && ($queryParams['date_range_end'][0] < $dateFacetStats["max"])) {
+      $currentMax = $queryParams['date_range_end'][0];
+    } else {
+      $currentMax = $dateFacetStats["max"];
+    }
+    if (!empty($dateFacetStats["totalMin"])) {
+      $totalMin = $dateFacetStats["totalMin"];
+    } else {
+      $totalMin = $currentMin;
+    }
+    if (!empty($dateFacetStats["totalMax"])) {
+      $totalMax = $dateFacetStats["totalMax"];
+    } else {
+      $totalMax = $currentMin;
+    }
+  }
+  ?>
+  <?php if (!(($currentMin == $totalMin) && ($currentMax == $totalMax) && ($currentMin == $currentMax))): ?>
     <div class="card rounded-0 border-start-0 border-end-0">
       <h4 class="card-header">Date</h4>
       <form id="dateRangeFacet" class="card-body py-2" method="get" action="<?php echo $this->dateRangeFacetURL(); ?>">
         <div class="row justify-content-between mb-4">
           <div class="col-auto">
             <label for="dateRangeMin" class="form-label">Min</label>
-            <input type="number" class="form-control form-control-sm" id="dateRangeMin" name="date_range_start[]" min="<?php echo $min; ?>" max="<?php echo $max; ?>">
+            <input type="number" class="form-control form-control-sm" id="dateRangeMin" name="date_range_start[]"
+              min="<?php echo $totalMin; ?>" max="<?php echo $totalMax; ?>">
           </div>
           <div class="col-auto">
             <label for="dateRangeMax" class="form-label">Max</label>
-            <input type="number" class="form-control form-control-sm" id="dateRangeMax" name="date_range_end[]" min="<?php echo $min; ?>" max="<?php echo $max; ?>">
+            <input type="number" class="form-control form-control-sm" id="dateRangeMax" name="date_range_end[]"
+              min="<?php echo $totalMin; ?>" max="<?php echo $totalMax; ?>">
           </div>
         </div>
         <div class="row mb-4">
           <div class="col">
-            <div id="date-facet-slider" data-min=<?php echo $min; ?> data-max=<?php echo $max; ?>></div>
+            <div id="date-facet-slider" data-currentmin="<?php echo $currentMin; ?>"
+              data-totalmin="<?php echo $totalMin; ?>" data-currentmax="<?php echo $currentMax; ?>"
+              data-totalmax="<?php echo $totalMax; ?>"></div>
           </div>
         </div>
         <div class="row justify-content-end">
@@ -90,11 +119,13 @@ $this->headScript()->appendFile($this->assetUrl('js/dateRange.js'));
           <?php endforeach; ?>
           <?php if ($hiddenFacetValues): ?>
             <div class="collapse hidden-facets" id="collapse-<?php echo $collapse_count; ?>">
-            <?php foreach ($hiddenFacetValues as $facetValue): ?>
-              <?php echo $this->facetLink($name, $facetValue); ?>
-            <?php endforeach; ?>
+              <?php foreach ($hiddenFacetValues as $facetValue): ?>
+                <?php echo $this->facetLink($name, $facetValue); ?>
+              <?php endforeach; ?>
             </div>
-            <button class="list-group-item list-group-item-action expander d-inline-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?php echo $collapse_count; ?>" aria-expanded="false" aria-controls="collapse-<?php echo $collapse_count; ?>">
+            <button class="list-group-item list-group-item-action expander d-inline-flex align-items-center" type="button"
+              data-bs-toggle="collapse" data-bs-target="#collapse-<?php echo $collapse_count; ?>" aria-expanded="false"
+              aria-controls="collapse-<?php echo $collapse_count; ?>">
               More
             </button>
           <?php endif; ?>
