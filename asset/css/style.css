@@ -827,6 +827,7 @@ footer #fit-logo {
 }
 
 /* page */
-.page .row.blocks>div:not(:last-child) {
+.page .row.blocks>div:not(:last-child),
+.page .row.blocks .block>div:not(:last-child) {
   padding-bottom: 3rem;
 }
