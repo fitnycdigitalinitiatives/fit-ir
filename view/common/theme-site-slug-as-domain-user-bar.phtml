@@ -1,0 +1,37 @@
+<?php
+$translate = $this->plugin('translate');
+$hyperlink = $this->plugin('hyperlink');
+$urlHelper = $this->plugin('url');
+?>
+
+<ul class="navbar-nav d-none d-lg-flex">
+	<?php if ($user): ?>
+		<?php foreach ($links as $link): ?>
+			<li class="nav-item admin <?php echo $link['resource'] . ' ' . $link['action']; ?>">
+				<?php echo $hyperlink($link['text'], $link['url'], ['class' => 'nav-link text-dark']); ?>
+			</li>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<li class="nav-item">
+			<?php echo $hyperlink($translate('Log in'), $adminname . $urlHelper('login'), ['class' => 'login nav-link text-dark']); ?>
+		</li>
+	<?php endif; ?>
+</ul>
+<?php if ($this->userIsAllowed('Omeka\Controller\Admin\User', 'show')): ?>
+	<span class="navbar-text text-dark user-id ms-md-auto me-md-3">
+		<?php
+		$url = $adminname . $urlHelper('admin/id', ['controller' => 'user', 'id' => $user->getId()]);
+		echo sprintf($translate('Signed in as %s'), $hyperlink($user->getName(), $url, ['class' => 'text-dark']));
+		?>
+	</span>
+
+<?php else: ?>
+	<span class="navbar-text text-dark user-id ms-md-auto me-md-3">
+		<?php echo sprintf($translate('Signed in as %s'), $user->getName()); ?>
+	</span>
+<?php endif; ?>
+<ul class="navbar-nav">
+	<li class="nav-item">
+		<?php echo $hyperlink->raw('<span class="">Logout </span><i class="fas fa-sign-out-alt ms-1" aria-hidden="true" title="' . $translate('Logout') . '"></i>', $urlHelper('logout'), ['class' => 'logout nav-link text-dark', 'aria-label' => $translate('Logout')]); ?>
+	</li>
+</ul>
