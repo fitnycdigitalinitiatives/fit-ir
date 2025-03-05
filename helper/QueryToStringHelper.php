@@ -1,4 +1,5 @@
 <?php
+
 namespace OmekaTheme\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
@@ -114,7 +115,12 @@ class QueryToStringHelper extends AbstractHelper
     protected function removeFilterLink($queryFilter, $availableSearchFields, $query, $params)
     {
         $escape = $this->getView()->plugin('escapeHtml');
-        $label = $availableSearchFields[$queryFilter['field']]['label'];
+        $label = "";
+        foreach ($availableSearchFields as $searchField) {
+            if ($searchField['name'] == $queryFilter['field']) {
+                $label = $searchField['label'];
+            }
+        }
         $queryFilterString = $label . ': ' . '"' . $queryFilter['term'] . '"';
         $values = [];
         foreach ($query['filters']['queries'] as $queryFilterMatch) {
