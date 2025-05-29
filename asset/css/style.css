@@ -628,6 +628,10 @@ footer #fit-logo {
   .item.resource.show .pdfobject-container:before {
     padding-top: 100%;
   }
+
+  .item.resource.show .mirador-viewer-frame {
+    padding-bottom: 100%;
+  }
 }
 
 @media (max-width:767px) {
