@@ -32,14 +32,22 @@
   <?php $resources = array(); ?>
   <div class="container list pt-2 pb-3 pt-md-3 pb-md-4">
     <div class="row list" id="browse-container">
-      <?php foreach ($results as $result): ?>
-          <?php $resource = $this->api()->read($resourceName, $result['id'])->getContent(); ?>
+      <?php
+      foreach ($results as $result):
+        // Need to make sure the item actually exists because it can show up in the index a few minutes after it's been deleted         
+        try {
+          $resource = $this->api()->read($resourceName, $result['id'])->getContent();
+        } catch (Omeka\Api\Exception\NotFoundException $e) {
+          $resource = null;
+        }
+      ?>
+        <?php if ($resource): ?>
           <?php echo $this->partial('search/resource', [
-              'resource' => $resource,
-              'site' => $site,
+            'resource' => $resource,
+            'site' => $site,
           ]); ?>
           <?php array_push($resources, $resource); ?>
-
+        <?php endif; ?>
       <?php endforeach; ?>
     </div>
   </div>
