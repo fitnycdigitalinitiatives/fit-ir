@@ -613,24 +613,24 @@ footer #fit-logo {
 
 
 .item.resource.show .openseadragon-frame {
-  padding-bottom: 56.25%;
+  --viewer-aspect-ratio: 56.25%;
 }
 
 @media (orientation: portrait) {
-  .item.resource.show .tab-content .embed-responsive-video:before {
-    padding-top: 75%;
+  .item.resource.show .tab-content .embed-responsive-video {
+    --viewer-aspect-ratio: 75%;
   }
 
   .item.resource.show .tab-content .openseadragon-frame {
-    padding-bottom: 75%;
+    --viewer-aspect-ratio: 75%;
   }
 
-  .item.resource.show .pdfobject-container:before {
-    padding-top: 100%;
+  .item.resource.show .pdfobject-container {
+    --viewer-aspect-ratio: 100%;
   }
 
   .item.resource.show .mirador-viewer-frame {
-    padding-bottom: 100%;
+    --viewer-aspect-ratio: 100%;
   }
 }
 
