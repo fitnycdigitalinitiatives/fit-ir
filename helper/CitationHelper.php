@@ -1,4 +1,5 @@
 <?php
+
 namespace OmekaTheme\Helper;
 
 use Laminas\View\Helper\AbstractHelper;
@@ -16,14 +17,14 @@ class CitationHelper extends AbstractHelper
         $titleCased = $this->titleCase($title);
         $date = $item->value('dcterms:date');
         $thesis = '';
-        $chicagoThesis = 'FIT Digital Repository';
-        $mlaThesis = '<em>FIT Digital Repository</em>';
+        $chicagoThesis = 'FIT Institutional Repository';
+        $mlaThesis = '<em>FIT Institutional Repository</em>';
         if ($types = $item->value('dcterms:type', ['all' => true])) {
             foreach ($types as $type) {
                 if (ucfirst($escape($type)) == "Thesis") {
                     $thesis = ' [Master\'s thesis, Fashion Institute of Technology, State University of New York]';
                     $chicagoThesis = 'Master\'s thesis, Fashion Institute of Technology, State University of New York';
-                    $mlaThesis = 'Fashion Institute of Technology, State University of New York, Master\'s thesis. <em>FIT Digital Repository</em>';
+                    $mlaThesis = 'Fashion Institute of Technology, State University of New York, Master\'s thesis. <em>FIT Institutional Repository</em>';
                 }
             }
         }
@@ -128,9 +129,32 @@ class CitationHelper extends AbstractHelper
     protected function titleCase($title)
     {
         $smallwordsarray = array(
-      'of','a','the','and','an','or','nor','but','is','if','then','else','when',
-      'at','from','by','on','off','for','in','out','over','to','into','with'
-      );
+            'of',
+            'a',
+            'the',
+            'and',
+            'an',
+            'or',
+            'nor',
+            'but',
+            'is',
+            'if',
+            'then',
+            'else',
+            'when',
+            'at',
+            'from',
+            'by',
+            'on',
+            'off',
+            'for',
+            'in',
+            'out',
+            'over',
+            'to',
+            'into',
+            'with'
+        );
 
         // Split the string into separate words
         $words = explode(' ', $title);
