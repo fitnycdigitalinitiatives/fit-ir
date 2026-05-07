@@ -62,12 +62,12 @@ $sortHeadings = [
         </li>
         <li class="nav-item d-none d-md-block">
           <div class="btn-group" role="group" aria-label="Layout View">
-            <button type="button" class="btn btn-secondary active list" aria-pressed="true">
+            <button type="button" class="btn btn-secondary list" aria-label="List View">
               <i class="fas fa-list" aria-hidden="true" title="List View">
                 <span class="visually-hidden">List View</span>
               </i>
             </button>
-            <button type="button" class="btn btn-secondary grid">
+            <button type="button" class="btn btn-secondary grid active" aria-pressed="true" aria-label="Grid View">
               <i class="fas fa-th" aria-hidden="true" title="Grid View">
                 <span class="visually-hidden">Grid View</span>
               </i>
@@ -82,7 +82,7 @@ $sortHeadings = [
 
 <?php $this->trigger('view.browse.before'); ?>
 <div class="container list pt-2 pb-3 pt-md-3 pb-md-4">
-  <div class="row list" id="browse-container">
+  <div class="row grid" id="browse-container">
     <?php
     $collectionCount = 1;
     $headingTerm = $this->siteSetting('browse_heading_property_term');
@@ -91,7 +91,7 @@ $sortHeadings = [
       $heading = $headingTerm ? $itemSet->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => ($filterLocale ? [$lang, ''] : null)]) : $itemSet->displayTitle(null, ($filterLocale ? [$lang, ''] : null));
       $body = $bodyTerm ? $itemSet->value($bodyTerm, ['lang' => ($filterLocale ? [$lang, ''] : null)]) : $itemSet->displayDescription(null, ($filterLocale ? [$lang, ''] : null));
       $count = $this->api()->search('items', ['item_set_id' => $itemSet->id(), 'site_id' => $this->currentSite()->id(), 'limit' => 0])->getTotalResults();
-      ?>
+    ?>
       <div class="col item-container">
         <div class="card border-0">
           <?php echo $itemSet->linkRaw($this->thumbnail($itemSet, 'medium', ['class' => 'browse-thumbnail shadow-sm rounded', 'alt' => $heading]), null, ['class' => 'card-img']); ?>

@@ -17,6 +17,13 @@ $(document).ready(function () {
   });
   // Item browse and search
   if ($('body').hasClass('resource browse') || $('body').hasClass('resource search')) {
+    const entries = performance.getEntriesByType("navigation");
+    if (entries.length > 0 && entries[0].type === 'back_forward') {
+      let lastSearch = JSON.parse(sessionStorage.getItem(window.location.href));
+      if (lastSearch && "browsecontainer" in lastSearch && lastSearch.browsecontainer) {
+        $("#browse-container").replaceWith(lastSearch.browsecontainer);
+      }
+    }
     // Infinite scroll/load more
     // check if results have more than one page
     if ($('.pagination .next').length) {
@@ -103,6 +110,14 @@ $(document).ready(function () {
       });
       $container.on('append.infiniteScroll', function () {
         updateFocus();
+      });
+      window.addEventListener('beforeunload', () => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('page') && params.get('page') > 1) {
+          const browsecontainer = document.getElementById('browse-container');
+          const thisSearch = { browsecontainer: browsecontainer.outerHTML };
+          sessionStorage.setItem(window.location.href, JSON.stringify(thisSearch));
+        }
       });
     }
     // Layout toggle

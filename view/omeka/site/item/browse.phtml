@@ -60,7 +60,8 @@ $sortHeadings = [
             <?php echo ($totalResults == 1) ? ' result' : ' results'; ?>
           </div>
         <?php endif; ?>
-        <?php // check if solr/search module is activated by checking if the helper is present ?>
+        <?php // check if solr/search module is activated by checking if the helper is present 
+        ?>
         <?php if (($this->getHelperPluginManager()->has('getFacetsForBrowse')) && (!array_key_exists('scroll_request', $query))): ?>
           <?php $facetsForBrowse = $this->getFacetsForBrowse($query, $itemSetShow); ?>
           <?php if ($facetsForBrowse && $facetsForBrowse['facets']): ?>
@@ -119,11 +120,11 @@ $sortHeadings = [
           </li>
           <li class="nav-item d-none d-md-block">
             <div class="btn-group" role="group" aria-label="Layout View">
-              <button type="button" class="btn btn-secondary active list" aria-pressed="true" aria-label="List View">
+              <button type="button" class="btn btn-secondary list" aria-label="List View">
                 <i class="fas fa-list" aria-hidden="true" title="List View">
                 </i>
               </button>
-              <button type="button" class="btn btn-secondary grid" aria-label="Grid View">
+              <button type="button" class="btn btn-secondary grid active" aria-pressed="true" aria-label="Grid View">
                 <i class="fas fa-th" aria-hidden="true" title="Grid View">
                 </i>
               </button>
@@ -137,13 +138,13 @@ $sortHeadings = [
 
   <?php $this->trigger('view.browse.before'); ?>
   <div class="container list pt-2 pb-3 pt-md-3 pb-md-4">
-    <div class="row list" id="browse-container">
+    <div class="row grid" id="browse-container">
       <?php
       $headingTerm = $this->siteSetting('browse_heading_property_term');
       $bodyTerm = $this->siteSetting('browse_body_property_term');
       foreach ($items as $item):
         $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => ($filterLocale ? [$lang, ''] : null)]) : $item->displayTitle(null, ($filterLocale ? [$lang, ''] : null));
-        ?>
+      ?>
         <div class="col item-container">
           <div class="card border-0">
             <?php echo $item->linkRaw($this->thumbnail($item, 'medium', ['class' => 'browse-thumbnail shadow-sm rounded', 'alt' => $heading]), null, ['class' => 'card-img']); ?>
